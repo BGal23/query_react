@@ -1,37 +1,28 @@
+import { Suspense, lazy } from "react";
 import "./App.css";
-import { fetchData } from "./API";
-import CreateContact from "./CreateContact";
-import { useQuery } from "@tanstack/react-query";
+import { Route, Routes } from "react-router-dom";
+import ContainerPage from "./components/Container/Container";
+//const Container = lazy(() => import("./components/Container/Container"));
+const Home = lazy(() => import("./components/Home/Home"));
+const About = lazy(() => import("./components/About/About"));
+const Contact = lazy(() => import("./components/Contact/Contact"));
+
+// import { fetchData } from "./API";
+// import CreateContact from "./CreateContact";
+// import { useQuery } from "@tanstack/react-query";
 
 const App = () => {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["contact"],
-    queryFn: fetchData,
-  });
-
-  if (isLoading) {
-    return <h3>Loading...</h3>;
-  }
-  if (isError) {
-    return <h3>Error!</h3>;
-  }
-
-  const list = data.map((element) => {
-    return (
-      <div key={element.id}>
-        {element.name}
-        {"   -   "}
-        {element.number}
-      </div>
-    );
-  });
-
   return (
     <>
-      <CreateContact />
-      <br />
-      <br />
-      <div>{list}</div>
+      <Suspense fallback={"Loading..."}>
+        <Routes>
+          <Route path="/" element={<ContainerPage />}>
+            <Route index element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="contact" index element={<Contact />} />
+          </Route>
+        </Routes>
+      </Suspense>
     </>
   );
 };

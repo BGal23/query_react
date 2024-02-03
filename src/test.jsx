@@ -47,3 +47,25 @@ const wait = (duration) => {
 };
 
 export default App;
+
+// const { data, isLoading, isError } = useQuery({
+//   queryKey: ["contact"],
+//   queryFn: fetchData,
+// });
+
+// if (isLoading) {
+//   return <h3>Loading...</h3>;
+// }
+// if (isError) {
+//   return <h3>Error!</h3>;
+// }
+
+// const list = data.map((element) => {
+//   return (
+//     <div key={element.id}>
+//       {element.name}
+//       {"   -   "}
+//       {element.number}
+//     </div>
+//   );
+// });

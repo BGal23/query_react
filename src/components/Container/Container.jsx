@@ -1,17 +1,16 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
-import { Container } from "@mui/material";
+import FooterPage from "../Footer/Footer";
 
 const ContainerPage = () => {
   return (
-    <Container>
+    <>
       <Navbar />
       <main>
         <Outlet />
       </main>
-      <Footer />
-    </Container>
+      <FooterPage />
+    </>
   );
 };
 

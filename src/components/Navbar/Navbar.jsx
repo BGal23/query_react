@@ -1,12 +1,14 @@
-import { AppBar, Box, IconButton, Button } from "@mui/material";
+import { AppBar, Box, Button, IconButton, Menu, MenuItem } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Logo from "../Logo/Logo";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isModalOpen, setIsModalOpen] = useState(null);
   const pages = ["Home", "About", "Contact"];
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -17,6 +19,13 @@ const Navbar = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const handleOpen = (event) => setIsModalOpen(event.currentTarget);
+
+  const handleClose = (page) => {
+    navigate(`/${page === "Home" ? "" : page.toLocaleLowerCase()}`);
+    setIsModalOpen(null);
+  };
 
   return (
     <header>
@@ -34,18 +43,40 @@ const Navbar = () => {
       >
         <Logo />
         {windowWidth < 768 ? (
-          <IconButton>
-            <MenuIcon fontSize="large" />
-          </IconButton>
+          <>
+            <IconButton onClick={handleOpen}>
+              <MenuIcon fontSize="large" />
+            </IconButton>
+            <Menu
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              anchorEl={isModalOpen}
+              open={Boolean(isModalOpen)}
+            >
+              {pages.map((page) => (
+                <MenuItem onClick={() => handleClose(page)} key={page}>
+                  {page}
+                </MenuItem>
+              ))}
+            </Menu>
+          </>
         ) : (
           <Box>
             {pages.map((page) => (
-              <Button color="secondary" fontSize="large" key={page}>
-                <Link
-                  to={`/${page === "Home" ? "" : page.toLocaleLowerCase()}`}
-                >
-                  {page}
-                </Link>
+              <Button
+                onClick={() => handleClose(page)}
+                color="secondary"
+                fontSize="large"
+                key={page}
+              >
+                {page}
               </Button>
             ))}
           </Box>

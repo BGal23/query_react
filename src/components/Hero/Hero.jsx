@@ -14,10 +14,14 @@ const Hero = () => {
           height: 400,
         }}
       >
-        <Typography sx={{ color: "white" }} variant="h2" component="h3">
+        <Typography
+          sx={{ color: "white", textAlign: "center" }}
+          variant="h2"
+          component="h3"
+        >
           Click hear to explore
         </Typography>
-        <Button>sddfss</Button>
+        <Button variant="contained">Click!</Button>
       </Box>
     </div>
   );

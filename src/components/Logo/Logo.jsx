@@ -12,7 +12,7 @@ const Logo = () => {
       }}
     >
       <DiamondTwoToneIcon fontSize="large" />
-      <Typography variant="h4">LOGO</Typography>
+      <Typography variant="h4">🆈🅾🆄🆁-🆂🅷🅾🅿™</Typography>
     </Box>
   );
 };
